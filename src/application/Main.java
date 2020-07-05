@@ -14,6 +14,8 @@ import model.dao.DaoFactory;
 import model.entities.Conta;
 
 public class Main extends Application {
+	
+	private static Scene mainScene;
 
 	Scanner sc = new Scanner(System.in);
 
@@ -22,7 +24,7 @@ public class Main extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/MainView.fxml"));
 			ScrollPane scrollPane = loader.load();
-			Scene mainScene = new Scene(scrollPane);
+			mainScene = new Scene(scrollPane);
 			
 			scrollPane.setFitToHeight(true);
 			scrollPane.setFitToWidth(true);
@@ -57,6 +59,9 @@ public class Main extends Application {
 		sc.close();*/
 	}
 
+	public static Scene getMainScene() {
+		return mainScene;
+	}
 	public static void main(String[] args) {
 		launch(args);
 	}
