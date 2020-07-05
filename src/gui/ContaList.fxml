@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox prefHeight="453.0" prefWidth="695.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<VBox prefHeight="453.0" prefWidth="695.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ContaListController">
    <children>
       <Label text="Plano de Contas">
          <font>
@@ -22,7 +21,7 @@
       </Label>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button mnemonicParsing="false" text="Novo Registro" />
+          <Button fx:id="btNovoRegistro" mnemonicParsing="false" onAction="#onbtNovoRegistro" text="Novo Registro" />
             <Button mnemonicParsing="false" text="Salvar" />
             <Button mnemonicParsing="false" text="Excluir" />
             <Button mnemonicParsing="false" text="Primeiro" />
@@ -32,11 +31,11 @@
             <Button mnemonicParsing="false" text="Sair" />
         </items>
       </ToolBar>
-      <TableView prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tableViewConta" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Id" />
-          <TableColumn prefWidth="75.0" text="Conta" />
-            <TableColumn prefWidth="75.0" text="Descrição" />
+          <TableColumn fx:id="tableColumnId" prefWidth="75.0" text="Id" />
+          <TableColumn fx:id="tableColumnConta" prefWidth="75.0" text="Conta" />
+            <TableColumn fx:id="tableColumnDescricao" prefWidth="75.0" text="Descrição" />
             <TableColumn prefWidth="75.0" text="Aceita Centro de Custo" />
             <TableColumn prefWidth="75.0" text="Analitíca ou Sintética?" />
             <TableColumn prefWidth="75.0" text="Tipo de Saldo" />
