@@ -31,7 +31,7 @@ public class MainViewController implements Initializable {
 
 	@FXML
 	public void onMenuItemPlanodeContasAction() {
-		System.out.println("onMenuItemPlanodeContasAction");
+		loadView("/gui/ContaList.fxml");
 	}
 
 	@FXML
