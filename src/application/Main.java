@@ -34,7 +34,7 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 
-		Scanner sc = new Scanner(System.in);
+		/*Scanner sc = new Scanner(System.in);
 
 		ContaDao contaDao = DaoFactory.createContaDao();
 		Conta c = new Conta(null, 2, "DOIS", "N", 1, "N", "C", "TESTE");
@@ -54,7 +54,7 @@ public class Main extends Application {
 		contaDao.update(conta);
 		System.out.println("Update completed!");
 
-		sc.close();
+		sc.close();*/
 	}
 
 	public static void main(String[] args) {
