@@ -16,6 +16,13 @@ public class Conta implements Serializable{
 	
 	public Conta() {
 	}
+	
+	public Conta(Integer id,Integer conta, String descricao) {
+		super();
+		Id = id;
+		Conta = conta;
+		Descricao = descricao;
+	}
 
 	public Conta(Integer id, Integer conta, String descricao, String centroCusto, Integer contaSupeior,
 			String tipoConta, String naturezadaConta, String observacaoConta) {
