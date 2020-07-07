@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="453.0" prefWidth="695.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ContaListController">
+<VBox prefHeight="329.0" prefWidth="639.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ContaListController">
    <children>
       <Label text="Plano de Contas">
          <font>
@@ -21,7 +21,7 @@
       </Label>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button fx:id="btNovoRegistro" mnemonicParsing="false" onAction="#onbtNovoRegistro" text="Novo Registro" />
+          <Button fx:id="btNovoRegistro" mnemonicParsing="false" onAction="#onbtNovoRegistroAction" text="Novo Registro" />
             <Button mnemonicParsing="false" text="Salvar" />
             <Button mnemonicParsing="false" text="Excluir" />
             <Button mnemonicParsing="false" text="Primeiro" />
