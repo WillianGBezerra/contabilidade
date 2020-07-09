@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import db.DB;
 import db.DbException;
@@ -105,10 +108,30 @@ public class ContaDaoJDBC implements ContaDao {
 
 	@Override
 	public List<Conta> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement("SELECT * FROM conta " + "ORDER BY Conta");
+			rs = st.executeQuery();
+			List<Conta> list = new ArrayList<>();
+			Map<Integer, Conta> map = new HashMap<>();
+			while (rs.next()) {
+				Conta c = map.get(rs.getInt("Id"));
+				if (c == null) {
+					c = instantiateConta(rs);
+					map.put(rs.getInt("Id"), c);
+				}
+				Conta obj = instantiateConta(rs);
+				list.add(obj);
+			}
+			return list;
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
 	}
-
 	@Override
 	public Conta findConta(Integer conta) {
 		PreparedStatement st = null;

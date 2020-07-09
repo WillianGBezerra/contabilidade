@@ -30,7 +30,7 @@ public class Main extends Application {
 			scrollPane.setFitToWidth(true);
 			
 			primaryStage.setScene(mainScene);
-			primaryStage.setTitle("JavaFX application - Contabilidade");
+			primaryStage.setTitle("JavaFX application - Contabilidade Bezerra");
 			primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();

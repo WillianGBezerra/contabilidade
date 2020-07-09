@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.Conta;
 import model.services.ContaService;
 
-public class ContaListController implements Initializable {
+public class ContaListController implements Initializable, DataChangeListener {
 
 	private ContaService service;
 
@@ -39,7 +40,19 @@ public class ContaListController implements Initializable {
 	@FXML
 	private TableColumn<Conta, String> tableColumnDescricao;
 	@FXML
+	private TableColumn<Conta, String> tableColumnCentroCusto;
+	@FXML
+	private TableColumn<Conta, String> tableColumnContaSupeior;
+	@FXML
+	private TableColumn<Conta, String> tableColumnTipoConta;
+	@FXML
+	private TableColumn<Conta, String> tableColumnNaturezadaConta;
+	@FXML
+	private TableColumn<Conta, String> tableColumnObservacaoConta;
+	@FXML
 	private Button btNovoRegistro;
+	@FXML
+	private Button btEditarRegistro;
 	@FXML
 	private Button btPrimeiroRegistro;
 	@FXML
@@ -54,14 +67,26 @@ public class ContaListController implements Initializable {
 	@FXML
 	public void onbtNovoRegistroAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		createDialogForm("/gui/ContaForm.fxml", parentStage);
+		Conta obj = new Conta();
+		createDialogForm(obj, "/gui/ContaForm.fxml", parentStage);
 	}
 
 	@FXML
 	public void onbtPrimeiroRegistroAction() {
-		return;
+		tableViewConta.getSelectionModel().selectFirst();
 	}
-
+	@FXML
+	public void onbtRegistroAnteriorAction() {
+		tableViewConta.getSelectionModel().selectPrevious();
+	}
+	@FXML
+	public void onbtProximoRegistroAction() {
+		tableViewConta.getSelectionModel().selectNext();
+	}
+	@FXML
+	public void onbtUltimoRegistroAction() {
+		tableViewConta.getSelectionModel().selectLast();
+	}
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
@@ -76,11 +101,16 @@ public class ContaListController implements Initializable {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnConta.setCellValueFactory(new PropertyValueFactory<>("conta"));
 		tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+		tableColumnCentroCusto.setCellValueFactory(new PropertyValueFactory<>("CentroCusto"));
+		tableColumnContaSupeior.setCellValueFactory(new PropertyValueFactory<>("ContaSupeior"));
+		tableColumnTipoConta.setCellValueFactory(new PropertyValueFactory<>("TipoConta"));
+		tableColumnNaturezadaConta.setCellValueFactory(new PropertyValueFactory<>("NaturezadaConta"));
+		tableColumnObservacaoConta.setCellValueFactory(new PropertyValueFactory<>("ObservacaoConta"));
+		
 
 		/* Faz a tabela acompanhar a altura da janela */
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewConta.prefHeightProperty().bind(stage.heightProperty());
-
 	}
 
 	public void updateTableView() {
@@ -92,13 +122,20 @@ public class ContaListController implements Initializable {
 		tableViewConta.setItems(obsList);
 	}
 	
-	private void createDialogForm(String absoluteName, Stage parentStage) {
+	private void createDialogForm(Conta obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
 			
+			ContaFormController controller = loader.getController();
+			controller.setConta(obj);
+			controller.setContaService(new ContaService());
+			controller.subscribeDataChangeListener(this);
+			controller.updateFormData();
+			
+			
 			Stage dialoagStage = new Stage();
-			dialoagStage.setTitle("Enter Conta data");
+			dialoagStage.setTitle("Nova Conta");
 			dialoagStage.setScene(new Scene(pane));
 			dialoagStage.setResizable(false);
 			dialoagStage.initOwner(parentStage);
@@ -108,5 +145,11 @@ public class ContaListController implements Initializable {
 		catch(IOException e) {
 			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
 		}
+	}
+
+	@Override
+	public void onDataChanged() {
+		updateTableView();
+		
 	}
 }
